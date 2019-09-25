@@ -577,3 +577,204 @@ Review Questions
 - D. Error Reporting consolidates crash information, which makes Error Reporting the right answer. Monitoring collects metrics on application and server performance. Logging is a log management service. Dataproc is not part of Stackdriver; it is a managed Hadoop and Spark service.
 
 ### 3 Projects, Service Accounts, and Billing
+
+How GCP Organizes Projects and Accounts
+
+GCP Resource Hierarchy
+
+Organization
+
+"An organization is the root of the resource hierarchy and typically corresponds to a company or organization."
+
+"A single cloud identity is associated with at most one organization."
+
+"Cloud identities have super admins, and those super admins assign the Organization Administrator Identity and Access Management (IAM) role to users who manage the organization."
+
+Folder
+
+"Folders are the building blocks of multilayer organizational hierarchies."
+
+"Folders can contain other folders or projects."
+
+Project
+
+"Your organization will have a quota of projects it can create."
+
+Organization Policies
+
+"One way to think of the difference is that IAM specifies who can do things, and the Organization Policy Service specifies what can be done with resources."
+
+Constraints on Resources
+
+"List constraints are lists of values that are allowed or disallowed for a resource."
+
+"Boolean constraints evaluate to true or false and determine whether the constraint is applied or not."
+
+Policy Evaluation
+
+"A better approach is to define a policy that constrains what can be done and attach that policy to an object in the resource hierarchy."
+
+"For example, since InfoSec wants all VMs to disable serial port access, you could specify a policy that constrains serial port access and then attach it to the organization."
+
+"All folders and projects below the organization will inherit that policy."
+
+Managing Projects
+
+Roles and Identities
+
+Roles in GCP
+
+"A role is a collection of permissions."
+
+"Roles are granted to users by binding a user to a role."
+
+"When we talk of identities, we mean the record we use to represent a human user or service account in GCP."
+
+"Primitive roles include Owner, Editor, and Viewer."
+
+"By using predefined roles, you can grant only the permissions a user needs to perform their function."
+
+Granting Roles to Identities
+
+Service Accounts
+
+"For example, you may have an application that needs to access a database, but you do not want to allow users of the application to access the database directly."
+
+"That service account can be assigned to the application so the application can execute queries on behalf of users without having to grant database access to those users."
+
+"When we assign a role to a service account, we are treating it as an identity."
+
+"When we give users permission to access a service account, we are treating it as a resource."
+
+"Users can create up to 100 service accounts per project."
+
+"Service accounts can be managed as a group of accounts at the project level or at the individual service account level."
+
+"Service accounts are created automatically when resources are created."
+
+Billing
+
+Billing Accounts
+
+"All projects must have a billing account unless they only use free services."
+
+"Few users will likely have Billing Account Creator, and those who do will likely have a financial role in the organization."
+
+"Cloud admins may have Billing Account Administrator to manage the accounts."
+
+"Any user who can create a project should have Billing Account User so new projects can be linked to the appropriate billing account."
+
+"Billing Account Viewer is useful for some, like an auditor who needs to be able to read billing account information but not change it."
+
+Billing Budgets and Alerts
+
+"By default, three percentages are set: 50 percent, 90 percent, and 100 percent."
+
+Exporting Billing Data
+
+Enabling APIs
+
+"GCP uses APIs to make services programatically accessible."
+
+"To enable service APIs, you can select APIs & Services from the main console menu."
+
+Provisioning Stackdriver Workspaces
+
+"For monitoring and logging data to be saved into Stackdriver, you need to create a workspace to save it."
+
+Exam Essentials
+
+"Understand the GCP resource hierarchy."
+
+"Understand organization policies."
+
+"Understand service accounts and how they are used."
+
+"Understand GCP Billing."
+
+"Know how to enable APIs and create Stackdriver Workspaces."
+
+Review Questions
+
+1. You are designing cloud applications for a healthcare provider. The records management application will manage medical information for patients. Access to this data is limited to a small number of employees. The billing department application will have insurance and payment information. Another group of employees will have access to billing information. In addition, the billing system will have two components: a private insurance billing system and a government payer billing system. Government regulations require that software used to bill the government must be isolated from other software systems. Which of the following resource hierarchies would meet these requirements and provide the most flexibility to adapt to changing requirements? - A. One organization, with folders for records management and billing. The billing folder would have private insurer and government payer folders within it. Common constraints would be specified in organization-level policies. Other policies would be defined at the appropriate folder.
+
+- A. Option A, the correct answer, separates the two main applications into their own folders and further allows separating private insurance from government payer, but using folders for each. This satisfies the regulatory need to keep the government payer software isolated from other software. Option B does not include an organization, which is the root of the resource hierarchy. Option C is not flexible with regard to differences in constraints on different applications. Option D is false because option A does meet the requirements.
+
+2. When you create a hierarchy, you can have more than one of which structure? - C. Folder and project
+
+- C. Resource hierarchies have a single organization at the root, which makes option C correct. Below that, there are folders that can contain other folders or projects. Folders can contain multiple folders and multiple projects.
+
+3. You are designing an application that uses a series of services to transform data from its original form into a format suitable for use in a data warehouse. Your transformation application will write to the message queue as it processes each input file. You don't want to give users permission to write to the message queue. You could allow the application to write to the message queue by using which of the following? - B. Service account
+
+- B. Service accounts are designed to give applications or VMs permission to perform tasks. Billing accounts are for associating charges with a payment method. Folders are part of resource hierarchies and have nothing to do with enabling an application to perform a task. Messaging accounts are a fictitious option.
+
+4. Your company has a number of policies that need to be enforced for all projects. You decide to apply policies to the resource hierarchy. Not long after you apply the policies, an engineer finds that an application that had worked prior to implementing policies is no longer working. The engineer would like you to create an exception for the application. How can you override a policy inherited from another entity in the resource hierarchy? - A. Inherited policies can be overridden by defining a policy at a folder or project level.
+
+- A. Inherited policies can be overridden by defining a policy at a folder or project level. Service accounts and billing accounts are not part of the resource hierarchy and are not involved in overriding policies.
+
+5. Constraints are used in resource hierarchy policies. Which of the following are types of constraints allowed? - E. All of the above
+
+- E. All of the listed types of constraints are supported in policies.
+
+6. A team with four members needs you to set up a project that needs only general permissions for all resources. You are granting each person a primitive role for different levels of access, depending on their responsibilities in the project. Which of the following are not included as primitive roles in Google Cloud Platform? - B. Publisher
+
+- B. Option B is the correct answer because Publisher is not a primitive role. Owner, Editor, and Viewer are the three primitive privileges in GCP.
+
+7. You are deploying a new custom application and want to delegate some administration tasks to DevOps engineers. They do not need all the privileges of a full application administrator, but they do need a subset of those privileges. What kind of role should you use to grant those privileges? - D. Custom
+
+- D. Primitive roles only include the Owner, Editor, and View permissions. Predefined roles are designed for GCP products and services, like App Engine or BigQuery. For a custom application, you can create sets of privileges that give the user with that role as much permission as needed but not more.
+
+8. An app for a finance company needs access to a database and a Cloud Storage bucket. There is no predefined role that grants all the needed permissions without granting some permissions that are not needed. You decide to create a custom role. When defining custom roles, you should follow which of the following principles? - D. Least privilege
+
+- D. Users should have only the privileges that are needed to carry out their duties. This is the principle of least privilege. Rotation of duties is another security principle related to having different people perform a task at different times. Defense in depth is the practice of using multiple security controls to protect the same asset. Option B is not a real security principle.
+
+9. How many organizations can you create in a resource hierarchy? - A. 1
+
+- A. A resource hierarchy has only one organization, which makes option A correct. You can however, create multiple folders and projects within a resource hierarchy.
+
+10. You are contacted by the finance department of your company for advice on how to automate payments for GCP services. What kind of account would you recommend setting up? - B. Billing account
+
+- B. In option B, the correct answer, the billing account is used to specify payment information and should be used to set up automatic payments. Service accounts are used to grant privileges to a VM and are not related to billing and payments. Resource accounts and credit accounts do not exist.
+
+11. You are experimenting with GCP for your company. You do not have permission to incur costs. How can you experiment with GCP without incurring charges? - C. You can use only free services in GCP.
+
+- C. GCP offers a free service level for many products, which makes option C the correct answer. You can use these services without having to set up a billing account. Google charges for serverless products, such as Cloud Functions and App Engine, when customers exceed the amount allowed under the free tier.
+
+12. Your DevOps team has decided to use Stackdriver monitoring and logging. You have been asked to set up Stackdriver workspaces. When you set up a Stackdriver workspace, what kind of resource is it associated with? - D. A project
+
+- D. Stackdriver workspaces are linked to projects, not individual resources like VM instances, clusters, or App Engine apps, so option D is correct. Options A, B, and C all incorrectly indicate that Workspaces are associated with individual compute resources.
+
+13. A large enterprise is planning to use GCP across a number of subdivisions. Each subdivision is managed independently and has its own budget. Most subdivisions plan to spend tens of thousands of dollars per month. How would you recommend that they set up their billing account(s)? - B. Use multiple self-service billing accounts.
+
+- D. Large enterprises should use invoicing when incurring large charges, which makes option D the right answer. A self-service account is appropriate only for amounts that are within the credit limits of credit cards. Since the subdivisions are independently managed and have their own budgets, each should have its own billing accounts.
+
+14. An application administrator is responsible for managing all resources in a project. She wants to delegate responsibility for several service accounts to another administrator. If additional service accounts are created, the other administrator should manage those as well. What is the best way to delegate privileges needed to manage the service accounts? - A. Grant `iam.serviceAccountUser` to the administrator at the project level.
+
+- A. When a user is granted `iam.serviceAccountUser` at the project level, that user can manage all service accounts in the project, so option A is correct. If a new service account is created, they will automatically have privilege to manage that service account. You could grant `iam.serviceAccountUser` to the administrator at the service account level, but that would require setting the role for all service accounts. If a new service account is created, the application administrator would have to grant `iam.serviceAccountUser` to the other administrator on the new service account. `iam.serviceProjectAccountUser` is a fictional role. 
+
+15. You work for a retailer with a large number of brick and mortar stores. Every night the stores upload daily sales data. You have been tasked with creating a service that verifies the uploads every night. You decide to use a service account. Your manager questions the security of your proposed solution, particularly about authenticating the service account. You explain the authentication mechanism used by service accounts. What authentication mechanism is used? - C. Encrypted keys
+
+- C. When a service account is created, Google generates encrypted keys for authentication, making option C correct. Usernames and passwords are not an option for service accounts. Two-factor authentication is an authentication practice that requires two forms of authentication, such as a username password pair and a code from an authentication device. Biometrics cannot be used by services and is not an option.
+
+16. What objects in GCP are sometimes treated as resources and sometimes as identities? - D. Roles
+
+- B. Service accounts are resources that are managed by administrators, but they also function as identities that can be assigned roles, which makes option B the correct answer. Billing accounts are not related to identities. Projects are not identities; they cannot take on roles. Roles are resources but not identities. They can take on privileges, but those privileges are used only when they are attached to an identity.
+
+17. You plan to develop a web application using products from the GCP that already include established roles for managing permissions such as read-only access or the ability to delete the old version. Which of the following roles offers these capabilities? - B. Predefined roles
+
+- B. Predefined roles are defined for a particular product, such as App Engine or Compute Engine, so option B is the right answer. They bundle privileges often needed together when managing or using a service. Primitive roles are building blocks for other roles. Custom roles are created by users to meet their particular needs; Application roles is a fictitious role.
+
+18. You are reviewing a new GCP account created for use by the finance department. An auditor has questions about who can create projects by default. You explain who has privileges to create projects by default. Who is included? - D. Only billing account users.
+
+- B. By default all users in an organization can create projects, which makes option B correct. The role `resourcemanager.projects.create` is the role that allows users to create projects. The billing account is not associated with creating projects.
+
+19. How many projects can be created in an account? - D. Each account has a limit determined by Google.
+
+- D. The maximum number of organizations is determined on a per-account basis by Google, so option D is the correct answer. If you need additional organizations, you can contact Google and ask for an increase in your limit.
+
+20. You are planning how to grant privileges to users of your company's GCP account. You need to document what each user will be able to do. Auditors are most concerned about a role called Organization IAM roles. You explain that users with that role can perform a number of tasks, which include all of the following except which one? - A. Defining the structure of the resource hierarchy
+
+- B. Users with the Organization IAM role are not necessarily responsible for determining what privileges should be assigned to users. That is determined based on the person's role in the organization and the security policies established within the organization, which makes option B correct. 
+
+### 4 Introduction to Computing in Google Cloud
+
