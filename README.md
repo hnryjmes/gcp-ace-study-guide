@@ -1632,3 +1632,140 @@ Review Questions
 
 ### 8 Managing Kubernetes Clusters 
 
+Viewing the Status of a Kubernetes Cluster
+
+Viewing the Status of Kubernetes Clusters Using Cloud Console
+
+Pinning Services to the Top of the Navigation Menu
+
+"Other possible statuses are Pending, which indicates the pod is downloading images; Succeeded, which indicates the pod terminated successfully; Failed, which indicates at least one container failed; and Unknown, which means the master cannot reach the node and status cannot be determined.
+
+Viewing the Status of Kubernetes Clusters Using Cloud SDK and Cloud Shell
+
+"To list information about nodes and pods, use the `kubectl` command."
+
+Adding, Modifying, and Removing Nodes
+
+Adding, Modifying, and Removing Nodes with Cloud Console
+
+"Once a cluster has been created, you can modify it using the `gcloud container clusters update` command."
+
+Adding, Modifying, and Removing Pods
+
+Adding, Modifying, and Removing Pods with Cloud Console
+
+"A deployment includes a configuration parameter called replicas, which are the number of pods running the application specified in the deployment."
+
+Adding, Modifying, and Removing Pods with Cloud SDK and Cloud Shell
+
+"To have Kubernetes manage the number of pods based on load, use the `autoscale` command."
+
+Adding, Modifying, and Removing Services
+
+Adding, Modifying, and Removing Services with Cloud Console
+
+Adding, Modifying, and Removing Services with Cloud SDK and Cloud Shell
+
+Viewing the Image Repository and Image Details
+
+Viewing the Image Repository and Image Details with Cloud Console
+
+Viewing the Image Repository and Image Details with Cloud SDK and Cloud Shell
+
+Summary
+
+Exam Essentials
+
+"Know how to view the status of a Kubernetes cluster."
+
+"Understand how to add, modify, and remove nodes."
+
+"Understand how to add, modify, and remove pods."
+
+"Understand how to add, modify, and remove services."
+
+"Know how to view Container Registry images and their details."
+
+Review Questions
+
+1. You are running several microservices in a Kubernetes cluster. You've noticed some performance degradation. After reviewing some logs, you begin to think the cluster may be improperly configured, and you open Cloud Console to investigate. How do you see the details of a specific cluster? - B. Click the cluster name.
+
+- B. When on the Cloud Console pages, you can click the cluster name to see a details page, so option B is the correct answer. Typing the name of cluster in the search bar does not always return cluster details; it can return instance group details. There is no such command as `gcloud cluster details`.
+
+2. You are viewing the details of a cluster in Cloud Console and want to see how many vCPUs are available in the cluster. Where would you look for that information? - D. A and C
+
+- D. You can find the number of vCPUs on the cluster listing in the Total Cores column or on the Details page in the Node Pool section in the size parameter, making option D correct. The Labels section does not have vCPU information.
+
+3. You have been assigned to help diagnose performance problems with applications running on several Kubernetes clusters. Which command should you use? - B. `gcloud containers clusters list`
+
+- B. The correct command includes `gcloud container` to describe the service, `clusters` to indicate the resource you are referring to, and `list` to indicate the command, which makes option B the correct answer. Options A and C are not valid commands.
+
+4. When you first try to use the `kubectl` command, you get an error message indicating that the resource cannot be found or you cannot connect to the cluster. What command would you use to try to eliminate the error? - B. `gcloud container clusters get-credentials`
+
+- B. It is likely you do not have access privileges to the cluster. The `gcloud container clusters get-credentials` command is the correct command to configure `kubectl` to use GCP credentials for the cluster, so option B is the right option. Options A, C, and D are invalid commands.
+
+5. An engineer recently joined your team and is not aware of your team's standards for creating clusters and other Kubernetes objects. In particular, the engineer has not properly labeled several clusters. You want to modify the labels on the cluster from Cloud Console. How would you do it? - C. Click the Edit menu option.
+
+- C. Clicking the Edit button allows you to change, add, or remove labels, so option C is the correct answer. The Connect button is on the cluster listing page, and the Deploy button is for creating new deployments. There is no way to enter labels under the Labels section when displaying details.
+
+6. You receive a page in the middle of the night informing you that several services running on a Kubernetes cluster have high latency when responding to API requests. You review monitoring data and determine that there are not enough resources in the cluster to keep up with the load. You decide to add six more VMs to the cluster. What parameters will you need to specify when you issue the `cluster resize` command? - D. All of the above
+
+- D. When resizing, the `gcloud container clusters resize` command requires the name of the cluster and the node pool to modify. The size is required to specify how many nodes should be running. Therefore, option D is correct.
+
+7. You want to modify the number of pods in a cluster. What is the best way to do that? - B. Modify deployments
+
+- B. Pods are used to implement replicas of a deployment. It is a best practice to modify the deployments, which are configured with a specification of the number of replicas that should always run, so option B is the correct answer. Option A is incorrect; you should not modify pods directly. Options C and D are incorrect because they do not change the number of pods running an application.
+
+8. You want to see a list of deployments. Which option from the Kubernetes Engine navigation menu would you select? - C. Workloads
+
+- C. Deployments are listed under Workloads, making option C the correct answer. The Cluster option shows details about clusters but does not have details on deployments. Storage shows information about persistent volumes and storage classes. Deployments is not an option. 
+
+9. What actions are available from the Actions menu when viewing deployment details? - B. Autoscale, Expose, and Rolling Update
+
+- B. There are four actions available for deployments (Autoscale, Expose, Rolling Update, and Scale), so option B is correct. Add, Modify, and Delete are not options.
+
+10. What is the command to list deployments from the command line? - C.  `kubectl get deployments`
+
+- C. Since deployments are managed by Kubernetes and not GCP, we need to use a `kubectl` command and not a `gcloud` command, which makes option C correct. Option D is incorrect because it follows the `gcloud` command structure, not the `kubectl` command structure. The `kubectl` command has the verb, like `get`, before the resource type, like `deployments`, for example. 
+
+11. What parameters of a deployment can be set in the Create Deployment page in Cloud Console? - D. All of the above
+
+- D. You can specify container image, cluster name, and application name along with the labels, initial command, and namespace; therefore, option D is the correct answer.
+
+12. Where can you view a list of services when using Cloud Console? - A. In the Deployment Details page
+
+- A. The Deployment Details page includes services, so option A is the correct answer. Containers are used to implement services; service details are not available there. The Clusters Detail page does not contain information on services running in the cluster.
+
+13. What `kubectl` command is used to add a service? - A. `run`
+
+- A. `kubectl run` is the command used to start a deployment. It takes a name for the deployment, an image, and a port specification. The other options are not valid `kubectl` commands.
+
+14. You are supporting machine learning engineers who are testing a series of classifiers. They have five classifiers, called ml-classifier-1, ml-classifier-2, etc. They have found that ml-classifier-3 is not functioning as expected and they would like it removed from the cluster. What would you do to delete a service called ml-classifier-3? - A. Run the command `kubectl delete service ml-classifier-3`
+
+- A. Option A shows the correct command, which is `kubectl delete service ml-classifier-3`. Option B is missing the service term. Options C and D cannot be correct because services are managed by Kubernetes, not GCP. 
+
+15. What service is responsible for managing container images? - C. Container Registry
+
+- C. The Container Registry is the service for managing images that can be used in other services, including Kubernetes Engine and Compute Engine, making option C correct. Both Compute Engine and Kubernetes Engine use images but do not manage them. There is no service called Container Engine. 
+
+16. What command is used to list container images in the command line? - A. `gcloud container images list`
+
+- A. Images are managed by GCP, so the correct command will be a `gcloud` command, so option A is the correct answer. Option B is incorrect because the verb is placed before the resource. Options C and D are incorrect because `kubectl` is for managing Kubernetes resources, not GCP resources like container images.
+
+17. A data warehouse designer wants to deploy an extraction, transformation, and load process to Kubernetes. The designer provided you with a list of libraries that should be installed, including drivers for GPUs. You have a number of container images that you think may meet the requirements. How could you get a detailed description of each of those containers? - B. Run the command `gcloud container images describe`
+
+- B. The correct command is `gcloud container images describe`, which makes option B the right answer. `describe` is the `gcloud` verb or operation for showing the details of an object. All other options are invalid commands.
+
+18. You have just created a deployment and want applications outside the cluster to have access to the services provided by the deployment. What do you need to do to the service? - B. Issue a `kubectl expose deployment` command.
+
+- B. The `kubectl expose deployment` command makes a service accessible, so option B is the correct answer. IP addresses are assigned to VMs, not services. The command `gcloud` does not manage Kubernetes services, so option C is incorrect. Option D is incorrect because making a service accessible is not a cluster-level task.
+
+19. You have deployed an application to a Kubernetes cluster that processes sensor data from a fleet of delivery vehicles. The volume of incoming data depends on the number of vehicles making deliveries. The number of vehicles making deliveries is dependent on the number of customer orders. Customer orders are high during daytime hours, holiday seasons, and when major advertising campaigns are run. You want to make sure you have enough nodes running to handle the load, but you want to keep your costs down. How should you configure your Kubernetes cluster? - B. Enable autoscaling.
+
+- B. Autoscaling is the most cost-effective and least burdensome way to respond to changes in demand for a service, so option B is the correct answer. Option A may run nodes even when they are not needed. Option C is manually intensive and requires human intervention. Option D reduces human intervention but does not account for unexpected spikes or lulls in demand.
+
+20. When using Kubernetes Engine, which of the following might a cloud engineer need to configure? - B. Nodes, pods, services, clusters, and container images
+
+- B. Cloud engineers working with Kubernetes will need to be familiar with working with clusters, nodes, pods, and container images. They will also need to be familiar with deployment. Option B is the correct answer because the other options are all missing an important component of Kubernetes that cloud engineers will have to manage.
+
+### 9 Computing with App Engine
