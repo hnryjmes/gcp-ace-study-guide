@@ -1202,3 +1202,433 @@ Review Questions
 
 ### 6 Managing Virtual Machines
 
+"After creating virtual machines, a cloud engineer will need to work with both single instances of virtual machines (VMs) and groups of VMs that run the same configuration."
+
+"The latter are called instance groups and are introduced in this chapter."
+
+Managing Single Virtual Machine Instances
+
+Managing Single Virtual Machine Instances in the Console
+
+Starting, Stopping, and Deleting Instances
+
+Viewing Virtual Machine Inventory
+
+Attaching GPUs to an Instance
+
+"Also, if you add a GPU to a VM, you must set the instance to terminate during maintenance. This is set in the Availability Policies section of the VM configuration form."
+
+Working with Snapshots
+
+"Snapshots are copies of data on a persistent disk."
+
+"When you first create a snapshot, GCP will make a full copy of the data on the persistent disk."
+
+"If you are running a database or other application that may buffer data in memory before writing to disk, be sure to flush disk buffers before you create the snapshot; otherwise, data in memory that should be written to disk may be lost."
+
+"To work with snapshots, a user must be assigned the Compute Storage Admin role."
+
+Working with Images
+
+Managing a Single Virtual Machine Instance with Cloud Shell and the Command Line
+
+Starting Instances
+
+Stopping Instances
+
+Deleting Instances
+
+Viewing VM Inventory
+
+Working with Snapshots
+
+Working with Images
+
+"The `source-disk`, `source-image`, and `source-snapshot` parameters are used to create an image using a disk, image, and snapshot, respectively."
+
+"Families are groups of related images, which are usually different versions of the same underlying image."
+
+Introduction to Instance Groups
+
+Creating and Removing Instance Groups and Templates
+
+"To create an instance group, you must first create an instance group template."
+
+"Instance groups can contain instances in a single zone or across a region."
+
+"Regional managed instance groups are recommended because that configuration spreads the workload across zones, increasing resiliency."
+
+Instance Groups Load Balancing and Autoscaling
+
+"You can configure an autoscaling policy to trigger adding or removing instances based on CPU utilization, monitoring metric, load-balancing capacity, or queue-based workloads."
+
+Guidelines for Managing Virtual Machines
+
+"Use labels and descriptions."
+
+"Use manage instance groups to enable autoscaling and load balancing."
+
+"Use GPUs for numeric-intensive processing, such as machine learning and high-performance computing."
+
+"Use snapshots to save the state of a disk or to make copies."
+
+"Use preemptible instances for workloads that can tolerate disruption."
+
+Summary
+
+Exam Essentials
+
+"Understand how to navigate Cloud Console."
+
+"Understand how to install Cloud SDK."
+
+"Know how to create a VM in the console and at the command line."
+
+"Understand why GPUs are used and how to attach them to a VM."
+
+"Understand images and snapshots."
+
+"Understand instance groups and instance group templates."
+
+Review Questions
+
+1. Which page in Google Cloud Console would you use to create a single instance of a VM? - A. Compute Engine
+
+- A. The Compute Engine page is where you have the option of creating a single VM instance, so option A is the correct answer. App Engine is used for containers and running applications in language-specific runtime environments. Kubernetes Engine is used to create and manage Kubernetes clusters. Cloud Functions is where you would create a function to run in Google's serverless cloud function environment.
+
+2. You view a list of Linux VM instances in the console. All have public IP addresses assigned. You notice that the SSH option is disabled for one of the instances. Why might that be the case? - B. The instance is stopped.
+
+- B. Instances can be stopped, and when they are, then you cannot connect to them via SSH, which makes option B the correct answer. Starting the instance will enable SSH access. Option A is not correct because you can log into preemptible machines. Option C is incorrect because there is no No SSH option. Option D is incorrect because the SSH option can be disabled.
+
+3. You have noticed unusually slow response time when issuing commands to a Linux server, and you decide to reboot the machine. Which command would you use in the console to reboot? - B. Reset
+
+- B. The Reset command can be used to restart a VM; thus, option B is correct. The properties of the VM will not change, but data in memory will be lost. There is no Reboot, Restart, Shutdown, or Startup option in the console.
+
+4. In the console, you can filter the list of VM instances by which of the following? - C. Labels, status, or members of managed instance group
+
+- C. Labels, members of a managed instance group, and status are all available for filtering, so option C is the correct answer. You can also filter by internal IP, external IP, zone, network, deletion protection, and member of a managed or unmanaged instance group.
+
+5. You will be building a number of machine learning models on an instance  and attaching GPU to the instance. When you run your machine learning models they take an unusually long time to run. It appears that GPU is not being used. What could be the cause of this? - A. GPU libraries are not installed.
+
+- A. To function properly, the operating system must have GPU libraries installed, so option A is correct. The operating system does not have to be Ubuntu based, and there is no need to have at least eight CPUs in an instance before you can attach and use a GPU. Available disk space does not determine if a GPU if used or not.
+
+6. When you add a GPU to an instance, you must ensure that: - A. The instance is set to terminate during maintenance.
+
+- A. If you add a GPU to a VM, you must set the instance to terminate during maintenance, which makes option A the correct response. This is set in the Availability Policies section of the VM configuration form. The instance does not need to be preemptible and it can have non-boot disks attached. The instance is not required to run Ubuntu 14.02 or later.
+
+7. You are using snapshots to save copies of a 100GB disk. You make a snapshot and then add 10GB of data. You create a second snapshot. How much storage is used in total for the two snapshots (assume no compression)? - B. 110 GB, with 100GB for the first and 10GB for the second.
+
+- B. When you first create a snapshot, GCP will make a full copy of the data on the persistent disk. The next time you create a snapshot from that disk, GCP does not store a full copy of the second snapshot. Option C is incorrect; the first snapshot is not deleted automatically. Option D is incorrect, subsequent snapshots do not incur 10 percent overhead.
+
+8. You have decided to delegate the task of making backup snapshots to a member of your team. What role would you need to grant to your team member to create snapshots?
+
+- D. To work with snapshots, a user must be assigned the Compute Storage Admin role, which makes option D the correct answer. The other options are fictitious roles.
+
+9. The source of an image may be: - C. Disks, snapshots, or another image
+
+- C. Images can be created from four sources, namely, disks, snapshots, cloud storage files, or another image, so option C is the right answer. Database export files are not sources for images.
+
+10. You have built images using Ubuntu 14.04 and now want users to start using Ubuntu 16.04. You don't want to just delete images based on Ubuntu 14.04, but you want users to know they should start using Ubuntu 16.04. What features of images would you use to accomplish this? - B. Deprecated
+
+- B. Deprecated marks the image as no longer supported and allows you to specify a replacement image to use going forward, making option B the correct answer. Deprecated images are available for use but may not be patched for security flaws or have other updates. The other options are fictitious features of images.
+
+11. You want to generate a list of VMs in your inventory and have the results in JSON format. What command would you use? - C. `gcloud compute instances list --format json`
+
+- C. The base command for working with instances is `gcloud compute instances`, which makes option C the correct answer. The `list` command is used to show details of all instances. By default, `output` is in human-readable form, not `json`. Using the `--format json` option forces the output to be in JSON format. `--output` is not a valid option.
+
+12. You would like to understand details of how GCP starts a virtual instance. Which optional parameter would you use when starting an instance to display those details?
+
+- B. `--async` causes information about the start process to be displayed; therefore option B is correct. `--verbose` is an analogous parameter in many Linux commands. `--describe` provides details about an instance but not necessarily the startup process. `--details` is not a valid parameter.
+
+13. Which command will delete an instance named ch06-instance-3? - C. `gcloud compute instances delete ch06-instance-3`
+
+- C. The command to delete an instance is `gcloud compute instances delete` followed by the name of the instance, so option C is correct. Option A is incorrect because there is no `instance` parameter. Option B is incorrect because that command stops but does not delete the instance. Option D is missing `instances` in the command, which is required to indicate what type of entity is being deleted.
+
+14. You are about to delete an instance named ch06-instance-1 but want to keep its boot disk. You do not want to keep other attached disks. What `gcloud` command would you use? - A. `gcloud compute instances delete ch06-instance-1 --keep-disks=boot`
+
+- A. `gcloud compute instances` is the base command followed by `delete`, the name of the instance, and `--keep-disks=boot`, so option A is correct. There is no `--save-disk` parameter. Option C is wrong because `filesystem` is not a valid value for the `keep-disk` parameter. Option D is missing the `instances` option which is required in the command.
+
+15. You want to view a list of fields you can use to sort a list of instances. What command would you use to see the field names?
+
+- B. The correct answer is option B, which is to use the `describe` command. Option A will show some fields but not all. Options C and D are incorrect because there is no `detailed` parameter.
+
+16. You are deploying an application that will need to scale and be highly available. Which of these Compute Engine components will help achieve scalability and high availability? - B. Instance groups
+
+- B. Instance groups are sets of VMs that can be configured to scale and are used with load balancers, which contribute to improving availability, so option B is correct. Preemptible instances are not highly available because they can be shut down at any time by GCP. Cloud Storage is not a Compute Engine component. GPUs can help improve throughput for math-intensive operations but do not contribute to high availability.
+
+17. Before creating an instance group, you need to create what? - B. Instance group template
+
+- B. An instance group template is used to specify how the instance group should be created, which makes option B the correct answer. Option A is incorrect because instances are created automatically when an instance group is created. Boot disk images and snapshots do not have to be created before creating an instance group.
+
+18. How would you delete an instance group template using the command line? - B. `gcloud compute instance-templates delete`
+
+- B. The command to delete an instance group is `gcloud compute instance-template-delete`, so option B is correct. Option A incorrectly includes the term `instances`. Option C is in incorrect order. Option D is wrong because `instance-template` is in the wrong position and is plural in the option.
+
+19. What can be the basis for scaling up an instance group? - C. Network latency, load balancing capacity, and CPU utilization
+
+- C. You can configure an autoscaling policy to trigger adding or removing instances based on CPU utilization, monitoring metric, load balancing capacity, or queue-based workloads. Disk, network latency, and memory can trigger scaling if monitoring metrics on those resources are configured. So, option C is correct.
+
+20. An architect is moving a legacy application to Google Cloud and wants to minimize the changes to the existing architecture while administering the cluster as a single entity. The legacy application runs on a load-balanced cluster that runs nodes with two different configurations. The two configurations are required because of design decisions made several years ago. The load on the application is fairly consistent, so there is rarely a need to scale up or down. What GCP Compute Engine resource would you recommend using? - B. Unmanaged instance groups
+
+- B. Unmanaged instance groups are available for limited use cases such as this. Unmanaged instance groups are not recommended in general. Managed instance groups are the recommended way to use instance groups, but the two different configurations prevents their use. Preemptible instances and GPUs are not relevant to this scenario.
+
+### 7 Computing with Kubernetes
+
+Introduction to Kubernetes Engine
+
+"Kubernetes runs containers on a cluster of virtual machines (VMs)."
+
+"It determines where to run containers, monitors the health of containers, and manages the full lifecycle of VM instances."
+
+"This collection of tasks is known as container orchestration."
+
+"Instance groups, however, are much more restricted."
+
+"All VMs generally run the same image in an instance group."
+
+"Also, instance groups have no mechanism to support the deployment of containers."
+
+"Containers offer a highly-portable, light-weight means of distributing and scaling your applications or workloads, like VMs, without replicating the guest OS."
+
+"They can start and stop much faster (usually in seconds) and use fewer resources."
+
+"Instance groups have some monitoring and can restart instances that fail, but Kubernetes has much more flexibility with regard to maintaining a cluster of servers."
+
+Kubernetes Cluster Architecture
+
+"A Kubernetes cluster consists of a cluster master and one or more nodes, which are the workers of the cluster."
+
+"The cluster master manages services provided by Kubernetes, such as the Kubernetes API, controllers, and schedulers."
+
+"Users can also interact with a cluster using the `kubectl` command.
+
+"The nodes run an agent called kubelet, which is the service that communicates with the cluster master."
+
+Kubernetes Objects
+
+Pods
+
+"Pods are single instances of a running process in a cluster."
+
+"Pods contain at least one container."
+
+"They usually run a single container, but can run multiple containers."
+
+"Multiple containers are used when two or more containers must share resources."
+
+"Pods also use shared networking and storage across containers."
+
+"Each pod gets a unique IP address and a set of ports."
+
+"Multiple containers in a pod connect to different ports and can talk to each other on localhost."
+
+"This structure is designed to support running one instance of an application within the cluster as a pod."
+
+"A pod allows its containers to behave as if they are running on an isolated VM, sharing common storage, one IP address, and a set of ports."
+
+"By doing this, you can deploy multiple instances of the same application, or different instances of different applications on the the same node or different nodes, without having to change their configuration."
+
+"Pods treat the multiple containers as a single entity for management purposes."
+
+"Pods are generally created in groups."
+
+"Replicas are copies of pods and constitute a group of pods that are managed as a unit."
+
+"Pods are considered ephemeral; that is, they are expected to terminate."
+
+"If a pod is unhealthy – for example, if it is stuck in a waiting mode or crashing repeatedly – it is terminated."
+
+"The mechanism that manages scaling and health monitoring is known as a controller."
+
+"A key difference is that pods are for executing applications in containers and may be placed on various nodes in the cluster, while managed instance groups all execute the same application code on each of the nodes."
+
+"Also, you typically manage instance groups yourself by executing commands in Cloud Console or through the command line."
+
+"Pods are usually managed by a controller."
+
+Services
+
+"Since pods are ephemeral and can be terminated by a controller, other services that depend on pods should not be tightly coupled to particular pods."
+
+"For example, even though pods have unique IP addresses, applications should not depend on that IP address to reach an application."
+
+"Kubernetes provides a level of indirection between applications running in pods other applications that call them: it is called a service."
+
+"A service, in Kubernetes terminology, is an object that provides API endpoints with a stable IP address that allow applications to discover pods running a particular application."
+
+"Services update when changes are made to pods, so they maintain an up-to-date list of pods running an application."
+
+ReplicaSet
+
+"A ReplicaSet is a controller used by a deployment that ensures the correct number of identical pods are running."
+
+"For example, if a pod is determined to be unhealthy, a controller will terminate that pod."
+
+"The ReplicaSet will detect that not enough pods for that application or workload are running and will create another."
+
+Deployment
+
+"Deployments are sets of identical pods."
+
+"The members of the set may change as some pods are terminated and others are started, but they are all running the same application."
+
+"The pods all run the same application because they are created using the same pod template."
+
+"A pod template is a definition of how to run a pod."
+
+"The description of how to define the pod is called a pod specification."
+
+"That is, if the specification has a minimum number of pods that should be in the deployment and the number falls below that, then additional pods will be added to the deployment by calling on a ReplicaSet."
+
+StatefulSet
+
+"Deployments are well suited to stateless applications."
+
+"StatefulSets are used when an application needs a unique network identifier or stable persistent storage."
+
+Job
+
+"A job is an abstraction about a workload."
+
+"Jobs create pods and run them until the application completes a workload."
+
+"Job specifications are specified in a configuration file and include specifications about the container to use and what command to run."
+
+Deploying Kubernetes Clusters
+
+Deploying Kubernetes Clusters Using Cloud Console
+
+"The first time you use Kubernetes Engine, you may need to create credentials."
+
+"For example, if you want to run VMs in different zones to improve availability, you can specify multiple node pools."
+
+"They're much like a Managed Instance Group but not the same."
+
+Deploying Kubernetes Clusters Using Cloud Shell and Cloud SDK
+
+Deploying Application Pods
+
+"Once you have specified a deployment, you can display the corresponding YAML specification, which can be saved and used to create deployments from the command line."
+
+Monitoring Kubernetes
+
+"Stackdriver supports more advanced alerting as well, including process health, uptime checks, group aggregate thresholds, and metric rates of change."
+
+Summary
+
+"Kubernetes Engine is a container orchestration system for deploying applications to run in clusters."
+
+"Kubernetes is architected with a single cluster manager and worker nodes."
+
+"Kubernetes uses the concept that pods are instances running a container."
+
+"It is possible to run multiple containers in a pod, but that occurs less frequently than single-container pods."
+
+"ReplicaSets are controllers for ensuring that the correct number of pods are running."
+
+"Deployments are sets of identical pods."
+
+"StatefulSets are a type of deployment used for stateful applications."
+
+"You deploy applications by bundling the application in a container and using the console or the `kubectl` command to create a deployment that runs the application on the cluster."
+
+Exam Essentials
+
+"Understand that Kubernetes is a container orchestration system."
+
+"Understand that Kubernetes uses a single cluster master that controls nodes that executes workloads."
+
+"Be able to describe pods."
+
+"Kubernetes can be deployed using Cloud Console or using `gcloud` commands."
+
+"Deployments are sets of identical pods."
+
+"StatefulSets are a type of deployment used for stateful applications."
+
+"Kubernetes is monitored using Stackdriver."
+
+Review Questions
+
+1. A new engineer is asking for clarification about when it is best to use Kubernetes and when to use instance groups. You point out that Kubernetes uses instance groups. What purpose do instance groups play in a Kubernetes cluster? - C. They create sets of VMs that can be managed as a unit.
+
+- C. Kubernetes creates instance groups as part of the process of creating a cluster, which makes option C the correct answer. Stackdriver, not instance groups, is used to monitor the health of nodes and to create alerts and notifications. Kubernetes creates pods and deployments; they are not provided by instance groups.
+
+2. What kinds of instances are required to have a Kubernetes cluster? - A. A cluster master and nodes to execute workloads.
+
+- A. A Kubernetes cluster has a single cluster master and one or more nodes to execute workloads, so option A is the correct answer. Stackdriver is not part of the Kubernetes cluster; it is a separate GCP service. Kubernetes does not require instances with at least four vCPUs; in fact, the default node configuration uses one vCPU.
+
+3. What is a pod in Kubernetes? - C. A single instance of a running process in a cluster
+
+- C. Pods are single instances of a running process in a cluster, so option C is correct. Pods run containers but are not sets of containers. Application code runs in containers that are deployed in pods. Pods are not controllers, so they cannot manage communication with clients and Kubernetes services.
+
+4. You have developed an application that calls a service running in a Kubernetes cluster. The service runs in pods that can be terminated if they are unhealthy and replaced with other pods that might have a different IP address. How should you code your application to ensure it functions properly in this situation? - B. Communicate with Kubernetes services so applications do not have to be coupled to specific pods.
+
+- B. Services are applications that provide API endpoints that allow applications to discover pods running a particular application, making option B correct. Options A and C, if they could be coded using the API designed for managing clusters, would require more code than working with services and are subject to changes in a larger set of API functions. Option D is not an actual option.
+
+5. You have noticed that an application's performance has degraded significantly. You have recently made some configuration changes to resources in your Kubernetes cluster and suspect that those changes have alerted the number of pods running in the cluster. Where would you look for details on the number of pods that should be running? - C. ReplicaSet
+
+- C. ReplicaSets are controllers that are responsible for maintaining the correct number of pods, which makes option C the correct answer. Deployments are versions of application code running on a cluster. Stackdriver is a monitoring and logging service that monitors but does not control Kubernetes clusters. Jobs is an abstraction of workloads and is not tied to the number of pods running in a cluster.
+
+6. You are deploying a high availability application in Kubernetes Engine. You want to maintain availability even if there is a major network outage in a data center. What feature of Kubernetes Engine would you employ? - B. Multizone/region cluster
+
+- B. Multizone/multiregion clusters are available in Kubernetes Engine and are used to provide resiliency to an application, so option B is correct. Option A refers to instance groups that are a feature of Compute Engine, not directly of Kubernetes Engine. Option C is incorrect; regional deployments is a fictitious term. Load balancing distributes load and is part of Kubernetes by default. If load is not distributed across zones or regions, it does not help to add resiliency across data centers.
+
+7. You want to write a script to deploy a Kubernetes cluster with GPUs. You have deployed clusters before, but you are not sure about all the required parameters. You need to deploy this script as quickly as possible. What is one way to develop this script quickly? - A. Use the GPU template in the Kubernetes Engine cloud console to generate the `gcloud` command to create the cluster
+
+- A. Option A is the best answer. Starting with an existing template, filling in parameters, and generating the `gcloud` command is the most reliable way. Option D may work, but multiple parameters that are needed for your configuration may not be in the script you start with. There may be some trial and error with this option. Options B and C may lead to a solution but could take some time to complete.
+
+8. What `gcloud` command will create a cluster named ch07-cluster-1 with four nodes? - C. `gcloud container clusters create ch07-cluster-1 --num-nodes=4`
+
+- C. The correct command is option A [not anymore!]. Option B has `beta` in the wrong position. Option C is missing `beta`. Option D is missing the `--num-nodes` parameter name.
+
+9. When using Create Deployment from Cloud Console, which of the following cannot be specified for a deployment? - C. Time to live (TTL)
+
+- C. Time to Live is not an attribute of deployments, so option C is the correct answer. Application name, container image, and initial command can all be specified.
+
+10. Deployment configuration files created in Cloud Console use what type of file format? - B. YAML
+
+- B. Deployment configuration files created in Cloud Console are saved in YAML format. CSV, TSV, and JSON are not used.
+
+11. What command is used to run a Docker image on a cluster? - C. `kubectl run`
+
+- C. The `kubectl` command is used to control workloads on a Kubernetes cluster once it is created, so option C is correct. Options A and B are incorrect because `gcloud` is not used to manipulate Kubernetes processes. Option D is wrong because `beta` is not required in `kubectl` commands.
+
+12. What command would you use to have 10 replicas of a deployment named ch07-app-deploy? - C. `kubectl scale deployment ch07-app-deploy --replicas=10`
+
+- C. Option C is the correct command. Option A uses the term `upgrade` instead of `scale`. Option B incorrectly uses `gcloud`. Option D uses the incorrect parameter pods.
+
+13. Stackdriver is used for what operations on Kubernetes clusters? - D. Notifications, monitoring, and logging
+
+- D. Stackdriver is a comprehensive monitoring, logging, alerting, and notification service that can be used to monitor Kubernetes clusters.
+
+14. Before monitoring a Kubernetes cluster, what must you create with Stackdriver? - B. Workspace
+
+- B. Workspaces are logical structures for storing information about resources in a project that are being monitored, so option B is correct. Stackdriver works with logs, but a log is not required before starting to use Stackdriver. Pods and ReplicaSets are part of Kubernetes, not Stackdriver.
+
+15. What kind of information is provided in the Details page about an instance in Stackdriver? - C. Disk I/O, CPU usage, and network traffic
+
+- C. The Stackdriver Instance Detail page includes time-series charts on CPU usage, network traffic, and disk I/O.
+
+16. When creating an alerting policy, what can be specified? - B. Conditions, notifications, and documentation
+
+- B. When creating an alert policy, you can specify conditions, notifications, and documentation, making option B the correct answer. Options A and D are incorrect because there is no Time to Live attribute on policies. Option C is wrong because it does not include notifications and documentation.
+
+17. Your development team needs to be notified if there is a problem with applications running on several Kubernetes clusters. Different team members prefer different notification methods in addition to Stackdriver alerting. What is the most efficient way to send notifications and meet your team's requests? - A. Set up SMS text messaging, Slack, and email notifications on an alert.
+
+- A. Alerts can have multiple channels, so Option A is correct. Channels include email, webhooks, and SMS text messaging as well as third-party tools such as PagerDuty, Campfire, and Slack. There is no need for multiple alerts with individual notifications. Option C is ad hoc and would require additional maintenance overhead. Option D does not meet requirements.
+
+18. A new engineer is trying to set up alerts for a Kubernetes cluster. The engineer seems to be creating a large number of alerts and you are concerned this is not the most efficient way and will lead to more maintenance work than required. You explain that a more efficient way is to create alerts and apply them to what? - B. An instance or entire group
+
+- B. Alerts are assigned to instances or sets of instances; therefore, option B is correct. Option A is incorrect because it does not include groups. Option C is incorrect because it does not include instances. Option D is wrong because alerts are not assigned to pods.
+
+19. You are attempting to execute commands to initiate a deployment on a Kubernetes cluster. The commands are not having any effect. You suspect that a Kubernetes component is not functioning correctly. What component could be the problem? - 
+
+- A. All interactions with the cluster are done through the master using the Kubernetes API. If an action is to be taken on a node, the command is issues by the cluster master, so option A is the correct answer. Options B and D are incorrect because they are controllers within the cluster and do not impact how commands are received from client devices. Option C is incorrect because `kubectl`, not `gcloud`, is used to initiate deployments.
+
+20. You have deployed an application to a Kubernetes cluster. You have noticed that several pods are starved for resources for a period of time and the pods are shut down. When resources are available, new instantiations of those pods are created. Client are still able to connect to pods even though thee new pods have different IP addresses from the pods that were terminated. What Kubernetes component makes this possible? - A. Services
+
+- A. Services provide a level of indirection to accessing pods. Pods are ephemeral. Clients connect to services, which can discover pods. ReplicaSets and StatefulSets provide managed pods. Alerts are for reporting on the state of resources.
+
+### 8 Managing Kubernetes Clusters 
+
