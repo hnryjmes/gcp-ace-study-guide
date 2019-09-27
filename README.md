@@ -1769,3 +1769,133 @@ Review Questions
 - B. Cloud engineers working with Kubernetes will need to be familiar with working with clusters, nodes, pods, and container images. They will also need to be familiar with deployment. Option B is the correct answer because the other options are all missing an important component of Kubernetes that cloud engineers will have to manage.
 
 ### 9 Computing with App Engine
+
+App Engine Components
+
+"An App Engine application is a high-level resource created in a project; that is, each project can have one App Engine application."
+
+"Services are typically structured to perform a single function with complex applications made up of multiple services, known as microservices."
+
+"If bugs or other problems occur with a version, you can easily roll back to an early version."
+
+Deploying an App Engine Application
+
+Deploying an App Using Cloud Shell and SDK
+
+Scaling App Engine Applications
+
+"When instances are scaled based on load, they are called dynamic instances."
+
+"To specify automatic scaling, add a section to app.yaml that includes the term `automatic_scaling` followed by key-value pairs of configuration options."
+
+Target CPU Utilization
+
+Target Throughput Utilization
+
+Maximum Concurrent Requests
+
+Maximum and Minimum Instances
+
+Maximum and Minimum Latency
+
+Splitting Traffic between App Engine Versions
+
+Summary
+
+"Know the structure of App Engine applications."
+
+"Know how to deploy an App Engine app."
+
+"Know how to view the status of an application in the App Engine Console."
+
+"Understand the different scaling options."
+
+"Know how to split traffic."
+
+"Understand how to migrate traffic to a new version."
+
+Review Questions
+
+1. You have designed a microservice that you want to deploy to production. Before it can be deployed, you have to review how you will manage the service lifecycle. The architect is particularly concerned about how you will deploy updates to the service with minimal disruptions during updates to the service with minimal disruption. What aspect of App Engine components would you use to minimize disruptions during updates to the service? - B. Versions
+
+- B. Versions support migration. An app can have multiple versions, and by deploying with the `--migrate` parameter, you can migrate traffic to the new version, so option B is the correct answer. Services are a higher-level abstraction and represent the functionality of a microservice. An app may have multiple services, but they serve different purposes. Instances execute code in a version. Instances may be added or removed as needed, but they will run only one version of a service. Instance groups are part of Compute Engine and are not an App Engine component.
+
+2. You've just released an application running in App Engine Standard. You notice that there are peak demand periods in which you need up to 12 instances, but most of the time 5 instances are sufficient. What is the best way to ensure that you have enough instances to meet demand without spending more than you have to? - A. Configure your app for autoscaling and specify max instances of 12 and min instances of 5.
+
+- A. Autoscaling enables setting a maximum and minimum number of instances, which makes option A correct. Basic scaling does not support maximum and minimum instances. Option C is not recommended because it is difficult to predict when load will peak and even if the schedule is predictable today, it may change over time. Option D is wrong; there is no instance detection option.
+
+3. In the hierarchy of App Engine components, what is the lowest-level component? - B. Instance
+
+- B. Application is the top-level component, so option B is the correct answer. Applications have one or more services. Services have one or more versions. Versions are executed on one or more instances when the application is running.
+
+4. What command should you use to deploy an App Engine app from the command line? - B. `gcloud app deploy`
+
+- B. The correct command is `gcloud app deploy`, which is option B. Options A and C are incorrect because `gcloud components` commands are used to install `gcloud` commands for working with parts of App Engine, such as the Python runtime environment. Option D is incorrect; you do not need to specify instance in the command.
+
+5. You have deployed a Django 1.5 Python application to App Engine. This version of Django requires Python 3. For some reason, App Engine is trying to run the application using Python 2. What file would you check and possibly modify to ensure that Python 3 is used with this application? - B. `app.yaml`
+
+- B. The `app.yaml` file is used to configure an App Engine application, which makes option B correct. The other options are not files used to configure App Engine.
+
+6. You have several App Engine apps you plan to deploy from your project. What have you failed to account for in this design? - A. App Engine only supports one app per project.
+
+- A. A project can support only one App Engine app, so option A is the right answer. If you'd like to run other applications, they will need to be placed in their own projects.
+
+7. The latest version of your microservice code has been approved by your manager, but the product owner does not want the new features released until a press release is published. You'd like to get the code out but not expose it to customers. What is the best way to get the code out as soon as possible without exposing it to customers? - C. Deploy with `gcloud app deploy --no-promote`.
+
+- C. The correct answer is option C because the correct parameter is `--no-promote`. Option A uses `no-traffic`, which is not a valid parameter to the `gcloud app deploy` command. Option B does not get the code out and could release the code too early if there is a delay in getting the press release out. Option D does not meet the requirements of getting the code out as soon as possible.
+
+8. You have just deployed an app that hosts services that provide the current time in any time zone. The project containing the code is called `current-time-zone`, the service providing the user interface is called `time-zone-ui`, and the service performing the calculation is called `time-zone-calculate`. What is the URL where a user could find your service? - B. `current-time-zone.appspot.com`
+
+- B. App Engine applications are accessible from URLs that consist of the project name followed by `appspot.com`, so option B is correct. Option A is incorrect because the domain is not `appengine.com`. Options C and D are incorrect because the names of services are not used to reference the application as a whole.
+
+9. You are concerned that as users make connections to your application, the performance will degrade. You want to make sure that more instances are added to your App Engine application when there are more than 20 concurrent requests. What parameter would you specify in `app.yaml`? - A. `max_concurrent_requests`
+
+- A. `max_concurrent_requests` lets you specify the maximum number of concurrent requests before another instance is started, which makes option A correct. `target_throughput_utilization` functions similarly but uses a 0.05 to 0.95 scale to specify maximum throughput utilization. `max_instances` specifies the maximum number of instances but not the criteria for adding instances. `max_pending_latency` is based on the time a request waits, not the number of requests.
+
+10. What parameters can be configured with basic scaling? - C. `idle_timeout` and `max_instances`
+
+- C. Basic scaling only allows for idle time and maximum instances, so option C is the right answer. `min_instances` is not supported. `target_throughput_utilization` is an autoscaling parameter, not a basic scaling parameter.
+
+11. The `runtime` parameter in `app.yaml` is used to specify what? - C. The language runtime environment
+
+- C. The `runtime` parameter specifies the language environment to execute in, which makes option C correct. The script to execute is specified by the `script` parameter. The URL to access the application is based on the project name and the domain `appspot.com`. There is no parameter for specifying the maximum time an application can run.
+
+12. What are the two kinds of instances available in App Engine Standard? - A. Resident and dynamic
+
+- A. Resident instances are used with manual scaling while dynamic instances are used with autoscaling and basic scaling, so option A is the correct answer. There are no persistent, stable, or nonresident types of App Engine instances.
+
+13. You work for a startup, and costs are a major concern. You are willing to take a slight performance hit if it will save you money. How should you configure the scaling for your apps running in App Engine? - A. Use dynamic instances by specifying autoscaling or basic scaling.
+
+- A. Using dynamic instances by specifying autoscaling or basic scaling will automatically adjust the number of instances in use based on load, so option A is correct. Option B is incorrect because autoscaling and basic scaling only create dynamic instances. Options C and D are incorrect because manual scaling will not adjust instances automatically, so you may continue to run more instances than needed at some points.
+
+14. A team of developers has created an optimized version of a service. This should run 30 percent faster in most cases. They want to roll it out to all users immediately, but you are concerned that the substantial changes need to be released slowly in case there are significant bugs. What can you do to allocate some users to the new version without exposing all users to it? - A. Issue the command `gcloud app services set-traffic`.
+
+- A. The correct answer is `gcloud app services set-traffic`. Option B is incorrect because the term `instances` is not needed. Option C is incorrect because it does not specify the term `services`. Option D is incorrect because that would require changes on the client's part.
+
+15. What parameter to `gcloud app services set-traffic` is used to specify the method to use when splitting traffic? - A. `--split-by`
+
+- A. `--split-by` is the parameter used to specify the method for splitting traffic, which makes option A correct. Valid options are `cookie`, `ip`, and `random`. All other options are not valid parameters to the `gcloud app services set-traffic` command.
+
+16. What parameter to `gcloud app services set-traffic` is used to specify the percentage of traffic that should go to each instance? - B. `--splits`
+
+- B. `--splits` is the parameter for specifying a list of instances and the percent of traffic they should receive, so option B is the right answer. The other options are not valid parameters for the `gcloud app services set-traffic` command.
+
+17. You have released a new version of a service. You have been waiting for approval from the product manager to start sending traffic to the new version. You get approval to route traffic to the new version. What parameter to `gcloud app services set-traffic` is used to specify that traffic should be moved to a newer version of the app? - C. `--migrate`
+
+- C. `--migrate` is the parameter for specifying that traffic should be moved or migrated to the newer instance, which makes option C the correct answer. The other options are not valid parameters for the `gcloud app services set-traffic` command.
+
+18. The status of what components can be viewed in the App Engine console? - D. Services, versions, and instances
+
+- D. From the App Engine console you can view the list of services and versions as well as information about the utilization of each instance.
+
+19. What are valid methods for splitting traffic? - D. By IP address, HTTP cookies, and randomly
+
+- D. All three methods listed, IP address, HTTP cookie, and random splitting, are allowed methods for splitting traffic.
+
+20. What is the name of the cookie used by App Engine when cookie-based splitting is used? - B. GOOGAPPUID
+
+- B. The cookie used for splitting in App Engine is called GOOGAPPUID, which makes option B the correct answer. Options A, C, and D are not valid names.
+
+### 10 Computing with Cloud Functions
+
+263
