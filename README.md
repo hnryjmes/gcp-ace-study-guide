@@ -2688,3 +2688,134 @@ Review Questions
 
 ### 15 Networking in the Cloud: DNS, Load Balancing, and IP Addressing
 
+Configuring Cloud DNS
+
+Creating DNS Managed Zones Using Cloud Console
+
+"You can enable DNSSEC, which is DNS security."
+
+"The TTL, known as time to live, and TTL Unit parameters specify how long the record can live in a cache."
+
+Creating a DNS Managed Zone Using gcloud
+
+Configuring Load Balancers
+
+Types of Load Balancers
+
+"The Internal TCP/UDP load balancer is the only internal load balancer."
+
+Configuring Load Balancers Using Cloud Console
+
+Configuring Load Balancers Using gcloud
+
+Managing IP Addresses
+
+Expanding CIDR Blocks
+
+"CIDR blocks define a range of IP addresses that are available for use in a subnet."
+
+Reserving IP Addresses
+
+Summary
+
+Exam Essentials
+
+"Understand that Cloud DNS is used to map domain names to IP addresses."
+
+"Know that DNS entries, like example.com, can have multiple records associated with them."
+
+"Know how load balancers are distinguished."
+
+"Know the five types of load balancers and when they should be used."
+
+"Understand that configuring a load balancer can require configuring both the frontend and backend."
+
+"Know how to increase the number of IP addresses in a subnet."
+
+"Know how to reserve an IP address using the console and the `gcloud beta compute address create` command."
+
+Review Questions
+
+1. What record type is used to specify the IPv4 address of a domain? - B. A
+
+- B. The A record is used to map a domain name to an IPv4 address, so option B is correct. Option A is incorrect because the AAAA record is used for IPv6 addresses. Option C is incorrect; NS is a name server record. Option D is incorrect; SOA is a start of authority record.
+
+2. The CEO of your startup just read a news report about a company that was attacked by something called cache poisoning. The CEO wants to implement additional security measures to reduce the risk of DNS spoofing and cache poisoning. What would you recommend? - A. Using DNSSEC
+
+- A. DNSSEC is a secure protocol designed to prevent spoofing and cache poisoning, so option A is correct. Options B and C are incorrect because SOA and CNAME records contain data about the DNS record; they are not an additional security measure. Option D is incorrect because deleting a CNAME record does not improve security.
+
+3. What do the TTL parameters specify in a DNS record? - A. Time a record can exist in a cache before it should be queried again
+
+- A. The TTL parameters specify the time a record can be in a cache before the data should be queried again, so option A is correct. Option B is incorrect; this time period is not related to timeouts. Option C is incorrect; the TTLs are not related to time restriction on data change operations. Option D is not correct; there is no manual review required.
+
+4. What command is used to create a DNS zone in the command line? - B. `gcloud beta dns managed-zones create`
+
+- [this answer is out of date: `beta` is no longer required]
+
+5. What parameter is used to make a DNS zone private? - B. `--visibility=private`
+
+- B. The `visibility` parameter is the parameter that can be set to private, so option B is correct. Option A is not a valid parameter. Option C is incorrect; private is not a parameter. Similarly, option D is incorrect; status is not a valid parameter for making a DNS zone private.
+
+6. Which load balancers provide global load balancing? - C. HTTP(S), SSL Proxy, and TCP Proxy
+
+- C. The three global load balancers are HTTP(S), SSL Proxy, and TCP Proxy, so option C is correct. Options A and B are missing at least one global load balancer. Option D is incorrect because Internal TCP/UDP is a regional load balancer.
+
+7. Which regional load balancer allows for load balancing based on IP protocol, address, and port? - D. Network TCP/UDP
+
+- D. Network TCP/UDP enables balancing based on IP protocol, address, and port, so option D is correct. Options A, B, and C are all global load balancers, not regional ones. 
+
+8. You are configuring a load balancer and want to implement private load balancing. Which option would you select? - A. Only Between My VMs
+
+- A. In the console there is an option to select between From Internet To My VMs and Only Between My VMs. This is the option to indicate private or public, so option A is correct. Options B, C, and D are all fictitious parameters.
+
+9. What two components need to be configured when creating a TCP Proxy load balancer? - B. Frontend and backend
+
+- B. TCP Proxy load balancers require you to configure both the frontend and backend, so option B is correct. Options A and D are incorrect because they are missing one component. Option C is incorrect; forwarding rules are the one component specified with network load balancing. There is no component known as a traffic rule.
+
+10. A health check is used to check what resources? - A. Load balancer
+
+- [the answer given seems wrong]
+
+11. Where do you specify the ports on a TCP Proxy load balancer that should have their traffic forwarded? - B. Frontend
+
+- B. You specify ports to forward when configuring the frontend, so option B is correct. The backend is where you configure how traffic is routed to VMs. Option C is incorrect; Network Services is a high-level area of the console. Option D is incorrect; VPCs are not where you specify load balancer configurations.
+
+12. What command is used to create a network load balancer at the command line? - A. `gcloud compute forwarding-rules create`
+
+- A. The correct answer, option A, is `gcloud compute forwarding-rules create`. Option B is incorrect; the service should be `compute`, not `network`. Option C is incorrect; `create` comes after `forwarding-rules`. Option D is incorrect because it has the wrong service, and the verb is in the wrong position.
+
+13. A team is setting up a web service for internal use. They want to use the same IP address for the foreseeable future. What type of IP address would you assign? - C. Static
+
+- C. Static addresses are assigned until they are released, so option C is correct. Options A and B are incorrect because internal and external addresses determine whether traffic is routed into and out of the subnet. External addresses can have traffic reach them from the Internet; internal addresses cannot. Option D is incorrect; ephemeral addresses are released when a VM shuts down or is deleted.
+
+14. You are starting up a VM to experiment with a new Python data science library. You'll SSH via the server name into the VM, use the Python interpreter interactively for a while and then shut down the machine. What type of IP address would you assign to this VM? - A. Ephemeral
+
+- A. An ephemeral address is sufficient, since resources outside the subnet will not need to reach the VM and you can SSH into the VM from the console, so option A is correct. Option B is incorrect because there is no need to assign a permanent address, which would then have to be released. Option C is incorrect; there is no Permanent type. Option D is incorrect; there is no IPv8 address.
+
+15. You have created a subnet called sn1 using 192.168.0.0 with 65,534 addresses. You realize that you will not need that many addresses, and you'd like to reduce that number to 254. Which of the following commands would you use? - D. There is no command to reduce the number of IP addresses available.
+
+- D. You cannot reduce the number of addresses using any of the commands, so option D is correct. Option A is incorrect because the prefix length specified in the `expand-ip-range` command must be a number less than the current length. If there are 65,534 addresses, then the prefix length is 16. Option B is incorrect for the same reason, and the prefix length cannot be a negative number. Option C is incorrect; there is no `--size` parameter.
+
+16. You have created a subnet called sn1 using 192.168.0.0. You want it to have 14 addresses. What prefix length would you use? - B. 28
+
+- B. The prefix length specifies the length in bits of the subnet mask. The remaining bits of the IP address are used for device addresses. Since there are 32 bits in an IP address, you subtract the length of the mask to get the number of bits used to represent the address. 16 is equal to 2^4, so you need 4 bits to represent 14 addresses. 32-4 is 28, so option B is the correct answer. Option A would leave 1 address, option C would provide 4,094 addresses, and option D would provide 65,534.
+
+17. You want all your network traffic to route over the Google network and not traverse the public Internet. What level of network service should you choose? - C. Premium
+
+- C. Premium is the network service level that routes all traffic over the Google network, so option C is correct. Option A is incorrect; the Standard tier may use the public Internet when routing traffic. Options B and D are incorrect; there are no service tiers called Google-only or non-Internet.
+
+18. You have a website hosted on a Compute Engine VM. Users can access the website using the domain name you provided. You do some maintenance work on the VM and stop the server and restart it. Now users cannot access the website. No other changes have occurred on the subnet. What might be the cause of the problem? - B. You used an ephemeral instead of a static IP address.
+
+- B. Stopping and starting a VM will release ephemeral IP addresses, so option B is correct. Use a static IP address to have the same IP address across reboots. Option A is incorrect; rebooting a VM does not change a DNS record. Option C is incorrect because if you had enough addresses to get an address when you first started the VM and you then released that IP address, there should be at least one IP address assuming no other devices are added to the subnet. Option D is incorrect because no other changes, including changes to the subnet, were made.
+
+19. You are deploying a distributed system. Messages will be passed between Compute Engine VMs using a reliable UDP protocol. All VMs are in the same region. You want to use the load balancer that best fits these requirements. Which kind of load balancer would you use? - A. Internal TCP/UDP
+
+- A. Internal TCP/UDP is a good option. It is a regional load balancer that supports UDP, so option A is correct. Options B, C, and D are all global load balancers. Option B supports TCP, not UDP. Option D supports HTTP and HTTPS, not UDP.
+
+20. You want to use Cloud Console to review the records in a DNS entry. What section of Cloud Console would you navigate to? - B. Network Services
+
+- B. Network Services is the section of Cloud Console that has the Cloud DNS console, so option B is correct. Option A is incorrect; Compute Engine does not have DNS management forms. Neither does option C, Kubernetes Engine. Option D is related to networking, but the services in Hybrid Connectivity are for services such as VPNs.
+
+### 16 Deploying Applications with Cloud Launcher and Deployment Manager
+
+421
