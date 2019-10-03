@@ -2934,3 +2934,139 @@ Review Questions
 
 ### 17 Configuring Access and Security
 
+Managing Identity and Access Management
+
+Viewing Account Identity and Access Management Assignments
+
+"Primitive roles were used prior to IAM."
+
+"There are three primitive roles: owner, editor, and viewer."
+
+"Predefined roles are grouped by service."
+
+"App Engine Admin, which grants read, write, and modify permission to application and configuration settings."
+
+"The role name used in `gcloud` commands is `roles/appengine.appAdmin`."
+
+"App Engine Service Admin, which grants read-only access to configuration settings and write access to module-level and version-level settings."
+
+"App Engine Deployer, which grants read-only access to application configuration and settings and write access to create new versions."
+
+"App Engine Viewer, which grants read-only access to application configuration and settings."
+
+"App Engine Code Viewer, which grants read-only access to all application configuration, settings, and deployed source code."
+
+Assigning Identity and Access Management Roles to Accounts and Groups
+
+Defining Custom Identity and Access Management Roles
+
+Managing Service Accounts
+
+Managing Service Accounts with Scopes
+
+Assigning a Service Account to a Virtual Machine Instance
+
+Viewing Audit Logs
+
+Summary
+
+Exam Essentials
+
+"Know the three types of roles: primitive, predefined, and custom."
+
+"Understand that scopes are a type of access control applied to VM instances."
+
+"Know how to view roles assigned to identities."
+
+"Understand that IAM roles support separation of duties and the principle of least privilege."
+
+"Know how to use `gcloud iam roles describe` to view details of a role, including permissions assigned to a role."
+
+"Understand the different options for accessing scopes when creating an instance."
+
+"Know that Stackdriver Logging collects logging events."
+
+Review Questions
+
+1. What does IAM stand for? - B. Identity and Access Management
+
+- B. IAM stands for Identity and Access Management, so option B is correct. Option A is incorrect; the A does not stand for authorization, although that is related. Option C is incorrect; the A does not stand for auditing, although that is related. Option D is incorrect. IAM also works with groups, not just individuals.
+
+2. When you navigate to IAM & Admin in Cloud Console, what appears in the main body of the page? - A. Members and roles assigned
+
+- A. Members and their roles are listed, so option A is correct. Options B and C are incorrect because they are missing the other main piece of information provided in the listing. Option D is incorrect; permissions are not displayed on that page.
+
+3. Why are primitive roles classified in a category in addition to IAM? - B. They were created before IAM.
+
+- B. Primitive roles were created before IAM and provided coarse-grained access controls, so option B is correct. Option A is incorrect; they are used for access control. Option C is incorrect; IAM is the newer form of access control. Option D is incorrect; they do provide access control functionality.
+
+4. A developer intern is confused about what roles are used for. You describe IAM roles as a collection of what? - B. Permissions
+
+- B. Roles are used to group permissions that can then be assigned to identities, so option B is correct. Option A is incorrect; roles do not have identities, but identities can be granted roles. Option C is incorrect; roles do not use access control lists. Option D is incorrect; roles do not audit logs. Logs are collected and managed by Stackdriver Logging.
+
+5. You want to list roles assigned to users in a project called ace-exam-project. What `gcloud` command would you use? - C. `gcloud projects get-iam-policy ace-exam-project`
+
+- C. The correct answer is `gcloud projects get-iam-policy ace-exam-project`, so option C is correct. Option A is incorrect because the resource should be projects and not `iam`. Option B is incorrect; `list` does not provide detailed descriptions. Option D is incorrect because `iam` and `list` are incorrectly referenced.
+
+6. You are working in the form displayed after clicking the Add link in the IAM form of IAM & Admin in Cloud Console. There is a parameter called New Members. What items would you enter in that parameter? - B. Individual users or groups
+
+- B. New members can be users, indicated by their email addresses, or groups, so option B is correct. Option A is incorrect; it does not include groups. Options C and D are incorrect because roles are not added there.
+
+7. You have been assigned the App Engine Deployer role. What operations can you perform? - D. Read application configuration and settings and write new versions
+
+- D. Deployers can read application configurations and settings and write new application versions, so option D is correct. Option A is incorrect because it is missing the ability to read configurations and settings. Option B is incorrect because it is missing writing new versions. Option C is incorrect because it references writing new configurations.
+
+8. You want to list permissions in a role using Cloud Console. Where would you go to see that? - B. IAM & Admin; select Roles. Check the box next to a role to display the permissions in that role.
+
+- B. The correct steps are navigating to IAM & Admin, selecting Roles, and then checking the box next to a role, so option B is correct. Option A is incorrect; all roles are not displayed automatically. Option C is incorrect; audit logs do not display permissions. Option D is incorrect; there is no Roles option in Service Accounts.
+
+9. You are meeting with an auditor to discuss security practices in the cloud. The auditor asks how you implement several best practices. You describe how IAM predefined roles help to implement which security best practice(s)? - D. Options A and B
+
+- D. Predefined roles help implement both least privilege and separation of duties, so option D is correct. Predefined roles do not implement defense in depth by themselves but could be used with other security controls to implement defense in depth.
+
+10. What launch stages are available when creating custom roles? - D. Alpha, beta, general availability, and disabled
+
+- D. The four launch stages available are alpha, beta, general availability, and disabled, so option D is correct.
+
+11. The `gcloud` command to create a custom role is what? - B. `gcloud iam roles create`
+
+- B. The correct answer, option B, is `gcloud iam roles create`. Option A is incorrect because it references `project` instead of `iam`. Option C is incorrect because it references `project` instead of `iam`, and the terms `create` and `roles` are out of order. Option D is incorrect because the terms `create` and `roles` are out of order.
+
+12. A DevOps engineer is confused about the purpose of scopes. Scopes are access controls that are applied to what kind of resources? - B. VM instances
+
+- B. Scopes are permissions granted to VM instances, so option B is correct. Scopes in combination with IAM roles assigned to service accounts assigned to the VM instance determine what operations the VM instance can perform. Options A and C are incorrect; scopes do not apply to storage resources. Option D is incorrect; scopes do not apply to subnets.
+
+13. A scope is identified using what kind of identifier? - C. A URL beginning with `https://www.googleapis.com/auth/`
+
+- C. Scope identifiers start with `https://www.googleapis.com/auth/` and are followed by a scope-specific name, such as `devstorage.read_only` or `logging.write`, so option C is correct. Option A is incorrect; scope IDs are not randomly generated. Option B is incorrect; the domain name is not `googleserviceaccounts`. Option D is incorrect; scopes are not linked directly to projects.
+
+14. A VM instance is trying to read from a Cloud Storage bucket. Reading the bucket is allowed by IAM roles granted to the service account of the VM. Reading buckets is denied by the scopes assigned to the VM. What will happen if the VM tries to read from the bucket? - C. The read will not execute because both scopes and IAM roles are applied to determine what operations can be performed.
+
+- C. Both scopes and IAM roles assigned to service accounts must allow an operation for it to succeed, so option C is correct. Option A is incorrect; access controls do not affect the flow of control in applications unless explicitly coded for that. Option B is incorrect; the most permissive permission is not used. Option D is incorrect; the operation will not succeed.
+
+15. What are the options for setting scopes in a VM? - B. Allow Default Access, Allow Full Access, and Set Access for Each API
+
+- B. The options for setting scopes are: Allow Default Access, Allow Full Access, and Set Access For Each API, so option B is correct. Option A is incorrect; it is missing Set Access For Each API. Option C is incorrect; it is missing Allow Default Access. Option D is incorrect; it is missing Allow Full Access.
+
+16. What `gcloud` command would you use to set scopes? - B. `gcloud compute instances set-service-account`
+
+- B. The correct command is `gcloud compute instances set-service-account`, so option B is correct. Option A is incorrect; there is no `set-scopes` command verb. Option C is incorrect; the command verb is not `set-scopes`. Option D is incorrect; there is no command verb `define-scopes`.
+
+17. What `gcloud` command would you use to assign a service account when creating a VM? - A. `gcloud compute instances create [INSTANCE_NAME] --service-account [SERVICE_ACCOUNT_EMAIL]`
+
+- A. You can assign a service account when creating a VM using the `create` command. Option B is incorrect; there is no `create-service-account` command verb. Option C is incorrect; there is no `define-service-account` command verb. Option D is incorrect; there is no `instances-service-account` command; also, `create` should come at the end of the command.
+
+18. What GCP service is used to view audit logs? - C. Stackdriver Logging
+
+- C. Stackdriver Logging collects, stores, and displays log messages, so option C is correct. Option A is incorrect; Compute Engine does not manage logs. Option B is incorrect; Cloud Storage is not used to view logs, although log files can be stored there. Option D is incorrect; custom logging solutions are not GCP services.
+
+19. What options are available for filtering log messages when viewing audit logs? - B. Resource, type of log, log level, and period of time only
+
+- B. Logs can be filtered by resource, type of logs, log level, and period of time only, so option B is correct. Options A, C, and D are incorrect because they are missing at least one option. 
+
+20. An auditor needs to review audit logs. You assign read-only permission to a custom role you create for auditors. What security best practice are you following? - B. Least privilege
+
+- B. This is an example of assigning the least privilege required to perform a task, so option B is correct. Option A is incorrect; defense in depth combines multiple security controls. Option C is incorrect because it is having different people perform sensitive tasks. Option D is incorrect; vulnerability scanning is a security measure applied to applications that helps reveal potential vulnerabilities in an application that an attacker could exploit.
+
+### 18 Monitoring, Logging, and Cost Estimating
+
