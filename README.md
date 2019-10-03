@@ -2636,7 +2636,7 @@ Review Questions
 
 8. You want to implement interproject communication between VPCs. Which feature of VPCs would you use to implement this? - A. VPC peering
 
-- A. VPC is used for interproject communications. Option B is incorrect; there is no interproject peering. Options C and D are incorrect; they have to do with linking on-premisee networks with networks in GCP. 
+- A. VPC is used for interproject communications. Option B is incorrect; there is no interproject peering. Options C and D are incorrect; they have to do with linking on-premise networks with networks in GCP. 
 
 9. You want to limit traffic to a set of instances. You decide to set a specific network tag on each instance. What part of a firewall rule can reference the network tag to determine the set of instances affected by the rule? - B. Target
 
@@ -2830,7 +2830,7 @@ Deployment Manager Configuration Files
 
 Deployment Manager Template Files
 
-"As an Associate Cloud Engineeer, you should know that Google recommends using Python to create template files unless the templates are relatively simple, in which case it is appropriate to use Jinja2."
+"As an Associate Cloud Engineer, you should know that Google recommends using Python to create template files unless the templates are relatively simple, in which case it is appropriate to use Jinja2."
 
 Launching a Deployment Manager Template
 
@@ -3070,3 +3070,144 @@ Review Questions
 
 ### 18 Monitoring, Logging, and Cost Estimating
 
+Monitoring with Stackdriver
+
+"Stackdriver works in hybrid environments with support for GCP, Amazon Web Services, and on-premise resources."
+
+Creating Alerts Based on Resource Metrics
+
+"A policy consists of conditions that determine when to issue an alert or notification, for example when CPU utilization is greater than 80 percent for more than 5 minutes."
+
+"It is useful to consolidate those measures into a single value, like the average, maximum, or minimum value for the set of measures for that minute."
+
+"This process of grouping data into regular-sized buckets of time is called aligning."
+
+Creating Custom Metrics
+
+"OpenCensus provides a higher-level, monitoring-focused API, while the Stackdriver Monitoring API is lower-level."
+
+Logging with Stackdriver
+
+Configuring Log Sinks
+
+"Stackdriver Logging retains log data for 30 days."
+
+"Your organization may need to keep logs longer to comply with government or industry regulations."
+
+Viewing and Filtering Logs
+
+Viewing Message Details
+
+Using Cloud Diagnostics
+
+Overview of Cloud Trace
+
+"Cloud Trace is a distributed tracing system for collecting latency data from an application."
+
+Overview of Cloud Debug
+
+"Cloud Debug allows developers to insert log statements or take snapshots of the state of an application."
+
+Viewing Google Cloud Platform Status
+
+Using the Pricing Calculator
+
+Summary
+
+Exam Essentials
+
+"Understand the need for monitoring and the role of metrics."
+
+"Stackdriver Logging collects, stores, and displays log data."
+
+"Know how to filter logs."
+
+"Cloud Trace is a distributed tracing service."
+
+"Cloud Debug is used to analyze running code by taking snapshots or injecting logpoints."
+
+"GCP publishes the status of services in the Google Cloud Platform Status page."
+
+"The Pricing Calculator is used to estimate the cost of resources and services in the GCP."
+
+Review Questions
+
+1. What Stackdriver service is used to generate alerts when the CPU utilization of a VM exceeds 80 percent? - B. Monitoring
+
+- B. The Monitoring service is used to set a threshold on metrics and generate alerts when a metric exceeds the threshold for a specified period of time, so option B is correct. Option A is incorrect; Logging is for collecting logged events. Option C is incorrect; Cloud Trace is for application tracing. Option D is incorrect; Debug is used to debug applications.
+
+2. You have just created a virtual machine, and you'd like Stackdriver Monitoring to alert you via email whenever the CPU average utilization exceeds 75 percent for 5 minutes. What do you need to do to the VM to have this happen? - C. Edit the VM configuration in Cloud Console and check the Monitor With Stackdriver checkbox
+
+- B. You must install the monitoring agent on the VM. The agent will collect data and send it to Stackdriver, so option B is correct. Option A is incorrect because a Workspace is not installed on a VM; it is created in Stackdriver. Option C is incorrect; there is no Monitor With Stackdriver check box in the VM configuration form. Option D is incorrect because you set notification channels in Stackdriver, not on a VM.
+
+3. Stackdriver can be used to monitor resources where? - D. In Google Cloud Platform, Amazon Web Services, and on premises data centers
+
+- D. Stackdriver can monitor resources in GCP, AWS, and in on-premise data centers, so option D is correct. Options A through C are incorrect because they do not include two other correct options.
+
+4. Grouping a set of metrics that arrive in a period of time into regular-sized buckets is called what? - B. Alignment
+
+- B. Aligning is the process of separating data points into regular buckets, so option B is correct. Option A is incorrect; aggregation is used to combine data points using a statistic, such as mean. Options C and D are incorrect; they are not processes related to processing streams of metric data.
+
+5. You have created a condition of CPU utilization, and you want to receive notifications. Which of the following are options? - D. Email, PagerDuty, and HipChat
+
+- [this answer is out of date] D. All three options are valid notification channels in Stackdriver Monitoring, so option D is correct. PagerDuty and HipChat are popular DevOps tools.
+
+6. When you create a policy to notify you of a potential problem with your infrastructure, you can specify optional documentation. Why would you bother putting documentation in that form? - D. Options B and C
+
+- D. The documentation is useful for documenting the purpose of the policy and for providing guidance for solving the problem, so option D is correct. Option A is incorrect; where a policy is stored is irrelevant to its usefulness. Options B and C alone are partially correct, but option D is a better answer.
+
+7. What is alert fatigue, and why is it a problem? - A. Too many alert notifications are sent for events that do not require human intervention, and eventually DevOps engineers begin to pay less attention to notifications.
+
+- A. Alert fatigue is a state caused by too many alert notifications being sent for events that do not require human intervention, so option A is correct. This creates the risk that eventually DevOps engineers will begin to pay less attention to notifications. Option B is incorrect, although it is conceivable that too many alerts could adversely impact performance, but that is not likely. Option C is a potential problem, too, but that is not alert fatigue. Option D is incorrect because too many true alerts contribute to alert fatigue.
+
+8. How long is log data stored in Stackdriver Logging? - C. 30 days
+
+- C. Stackdriver Logging stores log entries for 30 days, so option C is correct.
+
+9. You need to store log entries for a longer period of time than Stackdriver Logging retains them. What is the best option for preserving log data? - B. Create a log sink and export the log data using Stackdriver Logging's export functionality.
+
+- B. The best option is to use Stackdriver Logging's export functionality to write log data to a log sink, so option B is correct. Option A is incorrect; there is a way to export data. Options C and D are incorrect because writing a custom script would take more time to develop and maintain using Logging's export functionality.
+
+10. Which of the following are for logging sinks? - D. Cloud Storage bucket, BigQuery dataset, and Cloud Pub/Sub topic
+
+- D. All three, Cloud Storage buckets, BigQuery data sets, and Cloud Pub/Sub topics, are available as sinks for logging exports, so option D is correct. 
+
+11. Which of the following can be used to filter log entries when viewing logs in Stackdriver Logging? - D. Label or text search, resource type, log type, and time
+
+- D. All of the options listed can be used to filter, so option D is correct. Log level is another option as well.
+
+12. Which of the following is not a standard log level that can be used to filter log viewings? - B. Halted
+
+- B. The correct answer, option B, is halted. There is no such standard log level status. Statuses include Critical, Error, Warning, Info, and Debug.
+
+13. You are viewing log entries and spot one that looks suspicious. You are not familiar with the kind of log entry, and you want to see the complete details of the log entry as quickly as possible. What would you do? - B. Click Expand All to show all details.
+
+- B. The fastest way to see the details is to expand all levels of structured data in the entry, so option B is correct. Option A would show the details, but it is not the fastest way. Option C is more time-consuming than using the functionality built into Stackdriver Logging. Option D is incorrect; there is no such link.
+
+14. What Stackdriver service is best for identifying where bottlenecks exist in your application? - C. Trace
+
+- C. Cloud Trace is a distributed tracing application that provides details on how long different parts of code run, so option C is correct. Option A is incorrect; monitoring is used to notify DevOps engineers when resources are not functioning as expected. Option B is incorrect; Logging is for collecting, storing, and viewing log data, and although log entries might help diagnose bottlenecks, it is not specifically designed for that. Option D is incorrect; Debug is used to generate snapshots and inject logpoints.
+
+15. There is a bug in a microservice. You have reviewed application outputs but cannot identify the problem. You decide you need to step through the code. What Stackdriver service would you use to give you insight into the status of the services at particular points in execution? - D. Debug
+
+- D. Debug is used to generate snapshots that provide a view of the status of an application at a particular point in its execution, so option D is correct. Option A is incorrect; monitoring is used to notify DevOps engineers when resources are not functioning as expected. Option B is incorrect; Logging is for collecting, storing, and viewing log data. Option C is incorrect because Cloud Trace is a distributed tracing application that provides details on how long different parts of code run.
+
+16. You believe there may be a problem with BigQuery in the us-central zone. Where would you go to check the status of the BigQuery service for the quickest access to details? - B. Check `https://status.cloud.google.com`.
+
+- B. The Google Cloud Status Dashboard at `https://status.cloud.google.com/` has information on the status of GCP services, so option B is correct. Options A and B might lead to information, but they would take longer. Option C is not a link to a source of information on BigQuery.
+
+17. You would like to estimate the cost of GCP resources you will be using. Which services would require you to have information on the virtual machines you will be using? - B. Compute Engine and Kubernetes Engine
+
+- B. Both Compute Engine and Kubernetes Engine will require details about the VMs’ configurations, so option B is correct. The other options are incorrect because BigQuery and Cloud Pub/Sub are serverless services.
+
+18. You are generating an estimate of the cost of using BigQuery. One of the parameters is Query Pricing. You have to specify a value in TB units. What is the value you are specifying? - C. The amount of data scanned by the query
+
+- C. Query pricing in BigQuery is based on the amount of data scanned, so option C is correct. Option A is incorrect; the amount of data storage is specified in the Storage Pricing section. Option B is incorrect; query pricing is not based on the volume of data returned. Option D is incorrect because this is not related to Cloud Storage. Option D is incorrect because option C is correct.
+
+19. Why do you need to specify the operating system to be used when estimating the cost of a VM? - B. Some operating systems incur a cost.
+
+- B. Some operating systems, like Microsoft Windows Server, require a license, so option B is correct. Google sometimes has arrangements with vendors to collect fees for using proprietary software. Option A is incorrect; there is no fixed rate charge for operating systems. Option C is incorrect; the information is sometimes needed to compute charges. Option D is incorrect because if you Bring Your Own License, there is no additional license charge.
+
+20. You want to create a custom metric for use in Stackdriver Monitoring but do not want to use the low-level Stackdriver API. What is an alternative open source option for working with custom metrics? - B. OpenCensus
+
+- B. OpenCensus is a library for developing custom metrics that can be used with Stackdriver Logging, so option B is correct. Option A is incorrect; Prometheus is an open source monitoring tool, but it is not used to define custom metrics in Stackdriver Monitoring. Option C is incorrect; Grafana is a visualization tools for Prometheus. Option D is incorrect; Nagios is an open source monitoring and alerting service, but it is not used for defining custom metrics in Stackdriver Logging.
